@@ -2,7 +2,7 @@
 #include <stdbool.h>
 #include <stdlib.h>
 #include <math.h>
-#include "funcSS.h"
+#include "funcSolveSquare.h"
 #include "testSolveSquare.h"
 
 const double around0 = 1e-5;
@@ -50,10 +50,11 @@ void UnitTest(void)
     {
         ret = fscanf(file, "%lf %lf %lf %lf", &data[0], &data[1], &data[2], &data[3]);
 
-        if (ret != EOF && ret == 4)
-            testSolveSquare(data[0], data[1], data[2], data[3]);
-        else
+        if (ret == EOF && ret != 4)
             break;
+           
+         testSolveSquare(data[0], data[1], data[2], data[3]);
+            
     }
 
     fclose(file);

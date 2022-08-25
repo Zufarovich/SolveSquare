@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <math.h>
-#include "funcSS.h"
+#include "funcSolveSquare.h"
 #include "testSolveSquare.h"
 
 

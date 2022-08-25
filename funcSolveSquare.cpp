@@ -3,7 +3,7 @@
 #include <stdbool.h>
 #include <stdlib.h>
 #include <cassert>
-#include "funcSS.h"
+#include "funcSolveSquare.h"
 #include "testSolveSquare.h"
 
 const double around0 = 1e-5;
