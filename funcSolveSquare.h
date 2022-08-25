@@ -1,3 +1,7 @@
+const double around0 = 1e-5;
+const int _INF_ROOTS = -1;
+const int ERROR_OPEN_FILE = -1;
+
 /**
 * SolveSquare
 * This function returns ammount of roots and changes values of 2 variables (roots)

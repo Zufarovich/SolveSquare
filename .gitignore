@@ -1,0 +1,13 @@
+
+*.o
+*.exe
+*.html
+*.png
+*.js
+*.tex
+*.svg
+*.sty
+*.bat
+*.css
+Doxyfile
+*.exe

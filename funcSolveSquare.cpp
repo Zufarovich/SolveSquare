@@ -6,9 +6,6 @@
 #include "funcSolveSquare.h"
 #include "testSolveSquare.h"
 
-const double around0 = 1e-5;
-const int _INF_ROOTS = -1;
-
 void printRoots(int amount, double root1, double root2)
 {
     switch (amount)

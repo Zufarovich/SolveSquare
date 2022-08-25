@@ -5,25 +5,15 @@
 #include "funcSolveSquare.h"
 #include "testSolveSquare.h"
 
-const double around0 = 1e-5;
-const int _INF_ROOTS = -1;
-
-struct testData{
-    int amount;
-    double a;
-    double b;
-    double c;
-};
-
-void UnitTest(void)
+int UnitTest(void)
 {
     struct testData pack1[] = {
-     {.amount = 2, .a = 1, .b = 0, .c = -1},
-     {.amount = 0, .a = 1, .b = 0, .c = 1},
-     {.amount = _INF_ROOTS, .a = 0, .b = 0, .c = 0},
-     {.amount = 1, .a = 1, .b = 2, .c = 1},
-     {.amount = 2, .a = 5, .b = 6, .c = -6},
-     {.amount = 1, .a = 0, .b = 1, .c = -9}
+     {.amount = 2,          .a = 1, .b = 0, .c = -1},
+     {.amount = 0,          .a = 1, .b = 0, .c =  1},
+     {.amount = _INF_ROOTS, .a = 0, .b = 0, .c =  0},
+     {.amount = 1,          .a = 1, .b = 2, .c =  1},
+     {.amount = 2,          .a = 5, .b = 6, .c = -6},
+     {.amount = 1,          .a = 0, .b = 1, .c = -9}
     };
 
     printf("Test 1\n");
@@ -31,49 +21,49 @@ void UnitTest(void)
     int numOfTests = sizeof(pack1) / sizeof(pack1[0]);
 
     for (int i = 0; i < numOfTests; i++)
-        testSolveSquare(pack1[i].amount, pack1[i].a, pack1[i].b, pack1[i].c);
-
-    printf("Test 2\n");
+        testSolveSquare1(&pack1[i]);
 
     FILE* file = fopen("data.txt", "r");
     if (file == NULL)
     {
         printf("File doesn't opened");
-        abort();
+        return ERROR_OPEN_FILE;
     }
 
-    double data[4];
+    struct testData pack2 = {};
 
-    int ret = 4;
+    printf("Test 2\n"); 
 
     while (true)
     {
-        ret = fscanf(file, "%lf %lf %lf %lf", &data[0], &data[1], &data[2], &data[3]);
+        int ret = fscanf(file, "%d %lf %lf %lf", &pack2.amount, &pack2.a, &pack2.b, &pack2.c);
 
-        if (ret == EOF && ret != 4)
+        if (ret != 4)
             break;
-           
-         testSolveSquare(data[0], data[1], data[2], data[3]);
-            
+
+        testSolveSquare1(&pack2);
     }
 
     fclose(file);
+
+    return 0;
 }
-void testSolveSquare(int amount, double a, double b, double c)
+
+void testSolveSquare1(const struct testData *test)
 {
-    double r1 = NAN,
-           r2 = NAN;
+    double root1 = NAN,
+           root2 = NAN;
 
     bool success = false;
 
-    int val = SolveSquare(a, b, c, &r1, &r2);
+    int val = SolveSquare(test->a, test->b, test->c, &root1, &root2);
 
-    if (val == amount)
+    if (val == test->amount)
     {
-        double solCheck1 = a*r1*r1 + b*r1 + c;
-        double solCheck2 = a*r2*r2 + b*r2 + c;
+        double solCheck1 = test->a*root1*root1 + test->b*root1 + test->c;
+        double solCheck2 = test->a*root2*root2 + test->b*root2 + test->c;
 
-        switch (amount)
+        switch (test->amount)
         {
             case 0:
                 success = true;
@@ -107,9 +97,10 @@ void testSolveSquare(int amount, double a, double b, double c)
     else
     {
         printf("Unit Test       Failed\n");
-        printf("Coeficients a = %.2lf, b = %.2lf, c  = %.2lf\n", a, b, c);
-        printf("Actual amount of roots %d\n", amount);
+        printf("Coeficients a = %.2lf, b = %.2lf, c  = %.2lf\n", test->a, test->b, test->c);
+        printf("Actual amount of roots %d\n", test->amount);
         printf("Amount of roots that returned function %d\n", val);
-        printf("This roots x1 = %.4lf     x2 = %.4lf\n", r1, r2);
+        printf("This roots x1 = %.4lf     x2 = %.4lf\n", root1, root2);
     }
 }
+
