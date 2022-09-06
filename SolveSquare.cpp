@@ -8,17 +8,19 @@ int main(void)
     char ch = '\0';
 
     printf("Enter 1 to start unit test, 2 to enter your own square equation, or q to quit:\n");
+
     while ((ch = getchar()) != 'q')
     {
-        rewind(stdin);
+        char save = '\0';
+
         if (ch == '\n')
             continue;
 
-        if (ch == '1')
+        if (ch == '1' && getchar() == '\n')
         { 
             UnitTest();
         }
-        else if (ch == '2')
+        else if (ch == '2' && getchar() == '\n')
         {
             double a = NAN,
                    b = NAN,
@@ -31,7 +33,8 @@ int main(void)
             {
                 printf("You entered incorrect values!\n");
                 printf("Enter 3 real numbers:\n");
-                rewind(stdin);
+                while (getchar() != '\n')
+                    continue;
             }
             
             int roots = SolveSquare( a, b, c, &x1, &x2);
@@ -42,6 +45,9 @@ int main(void)
             printf("You entered incorrect value\n");
             printf("Try again\n");
         }
+
+        while (getchar() != '\n')
+             continue;
 
         printf("Enter 1 to start unit test, 2 to enter your own square equation, or q to quit:\n");
     }

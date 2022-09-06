@@ -19,11 +19,11 @@ void printRoots(int amount, double root1, double root2)
             break;
 
         case 1:
-            printf("This equation has 1 root:x = %.2lf\n", root1);
+            printf("This equation has 1 root:x = %.2lg\n", root1);
             break;
 
         case 2:
-            printf("This equation has 2 roots:x1 = %.2lf x2 = %.2lf\n", root1, root2);
+            printf("This equation has 2 roots:x1 = %.2lg x2 = %.2lg\n", root1, root2);
             break;
 
         default:
